@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Input from "./input";
+import Select from "./select";
 import Joi from "joi-browser";
 
 class Form extends Component {
@@ -7,11 +8,14 @@ class Form extends Component {
     data: {},
     errors: {},
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
+
     const errors = this.validateSubmit();
     this.setState({ errors: errors || {} });
     if (errors) return;
+
     this.doSubmit();
   };
 
@@ -29,7 +33,9 @@ class Form extends Component {
   validateSubmit = () => {
     const abortEarly = { abortEarly: false };
     const { error } = Joi.validate(this.state.data, this.schema, abortEarly);
+  
     if (!error) return null;
+    
     const errors = {};
     for (let item of error.details) {
       errors[item.path[0]] = item.message;
@@ -58,18 +64,17 @@ class Form extends Component {
     );
   };
 
-  renderDropdown = (dataArray) => {
+  renderSelect(name, label, options) {
+    const { data, errors } = this.state;
     return (
-      <div class="input-group mb-3">
-        <select class="custom-select" id="inputGroupSelect01">
-          <label >Genres</label>
-          {dataArray.map((data) => (
-            <option key={data._id} value={data.name}>
-              {data.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Select
+        name={name}
+        label={label}
+        options={options}
+        value={data[name]}
+        onChange={this.handleChange}
+        error={errors[name]}
+      />
     );
   };
 

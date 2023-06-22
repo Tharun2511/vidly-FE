@@ -1,17 +1,17 @@
-const ListGroup = ({ genresList, selectedGenre, onGenreSelect }) => {
+const ListGroup = ({ ItemsList, selectedItem, onItemSelect }) => {
   return (
     <ul className="list-group m-2">
-      {genresList.map((genre) => (
+      {ItemsList.map((item) => (
         <li
           className={
-            selectedGenre._id === genre._id
+            selectedItem._id === item._id
               ? "list-group-item active clickable"
               : "list-group-item clickable"
           }
-          key={genre._id}
-          onClick={() => onGenreSelect(genre)}
+          key={item._id}
+          onClick={() => onItemSelect(item)}
         >
-          {genre.name}
+          {item.name}
         </li>
       ))}
     </ul>

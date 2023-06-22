@@ -1,7 +1,7 @@
 import _ from "lodash";
 
-const Pagination = ({ movieCount, pageSize, currPage, onPageChange }) => {
-  const pagesCount = Math.ceil(movieCount / pageSize);
+const Pagination = ({ itemCount, pageSize, currPage, onPageChange }) => {
+  const pagesCount = Math.ceil(itemCount / pageSize);
 
   if (pagesCount === 1) return null;
 
